@@ -1,38 +1,103 @@
-.App {
+@import url('https://fonts.googleapis.com/css2?family=Jua&display=swap');
+
+body {
+  font-family: 'Jua', sans-serif;
+  background-color: #F0F2F5;
+  color: #333;
+}
+
+.container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #FFFFFF;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.setup-container {
+  max-width: 500px;
+  margin: 5rem auto;
+  padding: 2rem;
+  border: none;
+  background-color: #FFFFFF;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.ladder-container {
   text-align: center;
+  margin-top: 2rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+canvas {
+  border-radius: 10px;
+  border: 1px solid #E0E0E0;
+  background-color: #FAFAFA;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.players-container, .results-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: space-around;
+  margin: 15px 0;
+  padding: 0;
 }
 
-.App-link {
-  color: #61dafb;
+.player-name, .result-item {
+  flex: 1;
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  padding: 0 10px;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.player-name .form-control {
+  cursor: pointer;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.player-name .form-control:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.result-item {
+    padding-top: 10px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.result-item.winner {
+  color: #FF4500;
+  font-size: 1.5rem;
+  animation: winner-sparkle 1s ease-in-out infinite;
+}
+
+@keyframes winner-sparkle {
+  0%, 100% {
+    transform: scale(1);
+    text-shadow: 0 0 5px #FFF, 0 0 10px #FFF, 0 0 15px #FFD700, 0 0 20px #FFD700;
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    transform: scale(1.1);
+    text-shadow: 0 0 10px #FFF, 0 0 20px #FFF, 0 0 30px #FFD700, 0 0 40px #FFD700;
   }
 }
+
+.btn-primary, .btn-secondary {
+    border-radius: 8px;
+    padding: 10px 20px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+.btn-primary:hover, .btn-secondary:hover {
+    transform: translateY(-2px);
+}
+
