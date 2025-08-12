@@ -7,6 +7,7 @@ const pastelColors = ['#FFDDC1', '#C1FFD7', '#D1C1FF', '#FFFDC1', '#C1EFFF', '#F
 function App() {
   const [gameState, setGameState] = useState('setup');
   const [numPlayers, setNumPlayers] = useState(2);
+  const [numRungs, setNumRungs] = useState(10);
   const [players, setPlayers] = useState([]);
   const [results, setResults] = useState([]);
   const [ladder, setLadder] = useState([]);
@@ -105,7 +106,7 @@ function App() {
       if (anim.isFinished) continue;
 
       allDone = false;
-      const { fullPath, segment, progress } = anim;
+      const { fullPath, segment } = anim;
       const speed = 6;
 
       const start = fullPath[segment];
@@ -194,7 +195,6 @@ function App() {
     setResults(newResults);
 
     const newLadder = [];
-    const numRungs = Math.max(10, Math.floor(numPlayers * 1.5));
     for (let i = 0; i < numRungs; i++) {
       const startCol = Math.floor(Math.random() * (numPlayers - 1));
       const y = Math.random() * 0.8 + 0.1;
@@ -232,6 +232,18 @@ function App() {
             value={numPlayers}
             id="playerCount"
             onChange={(e) => setNumPlayers(parseInt(e.target.value))}
+          />
+        </div>
+        <div className="form-group mt-3">
+          <label htmlFor="rungCount">가로줄 개수: {numRungs}</label>
+          <input 
+            type="range" 
+            className="form-range" 
+            min="10" 
+            max="100" 
+            value={numRungs}
+            id="rungCount"
+            onChange={(e) => setNumRungs(parseInt(e.target.value))}
           />
         </div>
         <button className="btn btn-primary w-100 mt-4" onClick={startGame}>게임 시작</button>
