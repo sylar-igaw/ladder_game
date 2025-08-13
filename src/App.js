@@ -253,7 +253,7 @@ function App() {
             type="range" 
             className="form-range" 
             min="2" 
-            max="8" 
+            max="12" 
             value={numPlayers}
             id="playerCount"
             onChange={(e) => setNumPlayers(parseInt(e.target.value))}
