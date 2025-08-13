@@ -13,6 +13,7 @@ function App() {
   const [ladder, setLadder] = useState([]);
   const [revealedResults, setRevealedResults] = useState({});
   const canvasRef = useRef(null);
+  const ladderContainerRef = useRef(null);
   const animationRef = useRef({
     paths: {},
     active: false
@@ -82,10 +83,26 @@ function App() {
   }, [ladder, numPlayers]);
 
   useEffect(() => {
+    const canvas = canvasRef.current;
+    const container = ladderContainerRef.current;
+    if (!canvas || !container || gameState !== 'playing') return;
+
+    const handleResize = () => {
+      canvas.width = container.clientWidth;
+      canvas.height = 400;
+      draw(animationRef.current.paths);
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [draw, gameState]);
+
+  useEffect(() => {
     if (gameState === 'playing') {
       draw(animationRef.current.paths);
     }
-  }, [gameState, players, ladder, draw]);
+  }, [players, ladder, draw, gameState]);
   
   useEffect(() => {
       if (gameState === 'playing' && players.length > 0 && Object.keys(revealedResults).length === players.length) {
@@ -255,7 +272,7 @@ function App() {
     <div className="container mt-5">
       <h1 className="text-center mb-4">사다리 타기 게임</h1>
       
-      <div className="ladder-container">
+      <div className="ladder-container" ref={ladderContainerRef}>
         <div className="players-container">
           {players.map((player, index) => (
             <div key={index} className="player-name" onClick={() => handlePlayerClick(index)}>
@@ -270,7 +287,7 @@ function App() {
             </div>
           ))}
         </div>
-        <canvas ref={canvasRef} width="800" height="400" style={{ border: '1px solid black' }}></canvas>
+        <canvas ref={canvasRef}></canvas>
         <div className="results-container">
           {results.map((result, index) => {
             const revealedPlayer = Object.values(animationRef.current).find(a => a.resultIndex === index && a.isFinished);

@@ -101,3 +101,53 @@ canvas {
     transform: translateY(-2px);
 }
 
+@media (max-width: 992px) {
+  .container {
+    margin: 1rem auto;
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    margin: 0.5rem;
+    padding: 1rem;
+    border-radius: 10px;
+  }
+
+  .player-name, .result-item {
+    font-size: 0.9rem;
+    padding: 0 4px;
+  }
+
+  .players-container, .results-container {
+    margin: 10px 0;
+  }
+  
+  .player-name .form-control {
+    font-size: 0.9rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    margin: 0;
+    padding: 0.5rem;
+    border-radius: 0;
+    box-shadow: none;
+  }
+  
+  .player-name, .result-item {
+    font-size: 0.8rem;
+  }
+  
+  .btn-primary, .btn-secondary {
+    font-size: 1rem;
+    padding: 8px 16px;
+  }
+  
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
