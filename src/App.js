@@ -8,7 +8,7 @@ function App() {
   const [gameState, setGameState] = useState('setup');
   const [numPlayers, setNumPlayers] = useState(2);
   const [numRungs, setNumRungs] = useState(10);
-  const [players, setPlayers] = useState([]);
+  const [players, setPlayers] = useState(['참가자 1', '참가자 2']);
   const [results, setResults] = useState([]);
   const [ladder, setLadder] = useState([]);
   const [revealedResults, setRevealedResults] = useState({});
@@ -110,6 +110,16 @@ function App() {
       }
   }, [revealedResults, players, gameState]);
 
+  useEffect(() => {
+    if (gameState === 'setup') {
+      const newPlayers = [...players];
+      while (newPlayers.length < numPlayers) {
+        newPlayers.push(`참가자 ${newPlayers.length + 1}`);
+      }
+      setPlayers(newPlayers.slice(0, numPlayers));
+    }
+  }, [numPlayers, gameState]);
+
 
   const animate = useCallback(() => {
     if (!animationRef.current.active) return;
@@ -203,9 +213,6 @@ function App() {
   };
 
   const startGame = () => {
-    const initialPlayers = Array.from({ length: numPlayers }, (_, i) => `Player ${i + 1}`);
-    setPlayers(initialPlayers);
-
     const newResults = Array(numPlayers).fill('꽝');
     const winnerIndex = Math.floor(Math.random() * numPlayers);
     newResults[winnerIndex] = '당첨';
@@ -233,6 +240,7 @@ function App() {
   const restartGame = () => {
     setGameState('setup');
     setNumPlayers(2);
+    setPlayers(['참가자 1', '참가자 2']);
   };
 
   if (gameState === 'setup') {
@@ -263,6 +271,20 @@ function App() {
             onChange={(e) => setNumRungs(parseInt(e.target.value))}
           />
         </div>
+
+        <div className="form-group mt-4">
+          <label>플레이어 이름:</label>
+          {players.map((player, index) => (
+            <input
+              key={index}
+              type="text"
+              className="form-control mt-2"
+              value={player}
+              onChange={(e) => handlePlayerChange(index, e.target.value)}
+            />
+          ))}
+        </div>
+
         <button className="btn btn-primary w-100 mt-4" onClick={startGame}>게임 시작</button>
       </div>
     );
@@ -275,15 +297,13 @@ function App() {
       <div className="ladder-container" ref={ladderContainerRef}>
         <div className="players-container">
           {players.map((player, index) => (
-            <div key={index} className="player-name" onClick={() => handlePlayerClick(index)}>
-              <input 
-                type="text" 
-                className="form-control" 
-                value={player} 
-                onChange={(e) => handlePlayerChange(index, e.target.value)}
-                style={{borderColor: pastelColors[index % pastelColors.length], borderWidth: '2px'}}
-                readOnly={gameState !== 'playing'}
-              />
+            <div key={index} className="player-name" onClick={() => handlePlayerClick(index)} style={{cursor: 'pointer'}}>
+              <div 
+                className="form-control text-center"
+                style={{borderColor: pastelColors[index % pastelColors.length], borderWidth: '2px', backgroundColor: '#f8f9fa', userSelect: 'none'}}
+              >
+                {player}
+              </div>
             </div>
           ))}
         </div>
