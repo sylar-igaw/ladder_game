@@ -118,7 +118,7 @@ function App() {
       }
       setPlayers(newPlayers.slice(0, numPlayers));
     }
-  }, [numPlayers, gameState]);
+  }, [numPlayers, gameState, players]);
 
 
   const animate = useCallback(() => {
