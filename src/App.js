@@ -118,7 +118,8 @@ function App() {
       }
       setPlayers(newPlayers.slice(0, numPlayers));
     }
-  }, [numPlayers, gameState, players]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [numPlayers, gameState]);
 
 
   const animate = useCallback(() => {
