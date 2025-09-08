@@ -51,17 +51,16 @@ canvas {
   padding: 0 10px;
 }
 
-.player-name .form-control {
-  cursor: pointer;
+.player-label {
   text-align: center;
   font-weight: bold;
+  padding: 5px;
   border-radius: 8px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
-
-.player-name .form-control:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  word-break: keep-all;
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .result-item {
